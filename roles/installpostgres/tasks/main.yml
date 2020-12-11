@@ -1,0 +1,13 @@
+---
+- hosts: webservers
+  become: true
+  become_method: sudo
+  tasks:
+    - name: Install nginx web server
+      apt: pkg=nginx state=latest update_cache=true
+      notify:
+        - start nginx
+
+  handlers:
+    - name: start nginx
+      service: name=nginx state=restarted

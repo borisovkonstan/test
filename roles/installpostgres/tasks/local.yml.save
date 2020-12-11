@@ -1,0 +1,14 @@
+---
+- name: "Ansible playbook example"
+  hosts: webservers
+  tasks:
+    - name: Install nginx web server
+      local_action:
+      apt: pkg=nginx state=latest update_cache=true
+      notify:
+        - start nginx
+
+  handlers:
+    - name: start nginx
+      local_action:
+      service: name=nginx state=restarted
